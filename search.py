@@ -20,21 +20,21 @@ def main_loop():
         open_app(APP_NAME)
 
         # Click Continue button
-        if not click_image('continue_button.png'):
+        if not click_image('continue_button'):
             print("Failed to click Continue button. Retrying...")
             force_quit_app(APP_NAME)
             attempt += 1
             continue
 
         # Click Load Game button
-        if not click_image('load_game_button.png'):
+        if not click_image('load_game_button'):
             print("Failed to click Load Game button. Retrying...")
             force_quit_app(APP_NAME)
             attempt += 1
             continue
 
         # Click User Account button
-        if not click_image('username.png'):
+        if not click_image('username'):
             print("Failed to click username button. Retrying...")
             force_quit_app(APP_NAME)
             attempt += 1

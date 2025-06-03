@@ -61,16 +61,16 @@ def check_chest():
         ChestRarity: The rarity of the chest found, or NONE if no chest is found
     """
     # Check in order of rarity (highest to lowest)
-    if locate_image_on_screen('legendary_chest.png'):
+    if locate_image_on_screen('legendary_chest'):
         print("Legendary chest FOUND!")
         return ChestRarity.LEGENDARY
-    elif locate_image_on_screen('epic_chest.png'):
+    elif locate_image_on_screen('epic_chest'):
         print("Epic chest FOUND!")
         return ChestRarity.EPIC
-    elif locate_image_on_screen('common_chest.png'):
+    elif locate_image_on_screen('common_chest'):
         print("Common chest FOUND!")
         return ChestRarity.COMMON
-    elif locate_image_on_screen('rare_chest.png'):
+    elif locate_image_on_screen('rare_chest'):
         print("Rare chest FOUND!")
         return ChestRarity.RARE
     else:
