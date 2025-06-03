@@ -1,0 +1,70 @@
+import time
+import sys
+from utils import (
+    APP_NAME,
+    WAIT_AFTER_LOAD,
+    WALK_PATTERN,
+    click_image,
+    open_app,
+    force_quit_app,
+    walk_pattern,
+    dig,
+    check_chest,
+    ChestRarity,
+    log_attempt
+)
+
+def main_loop():
+    attempt = 1
+    while True:
+        print(f"\n--- Attempt #{attempt} ---")
+        open_app(APP_NAME)
+
+        # Click Continue button
+        if not click_image('continue_button.png'):
+            print("Failed to click Continue button. Retrying...")
+            force_quit_app(APP_NAME)
+            attempt += 1
+            continue
+
+        time.sleep(1)
+
+        # Click Load Game button
+        if not click_image('load_game_button.png'):
+            print("Failed to click Load Game button. Retrying...")
+            force_quit_app(APP_NAME)
+            attempt += 1
+            continue
+
+        time.sleep(2)
+
+        # Click User Account button
+        if not click_image('username.png'):
+            print("Failed to click username button. Retrying...")
+            force_quit_app(APP_NAME)
+            attempt += 1
+            continue
+
+        time.sleep(WAIT_AFTER_LOAD)
+
+        walk_pattern(WALK_PATTERN)
+        dig()
+        
+        # Check for any type of chest and log the result
+        chest_rarity = check_chest()
+        log_attempt(attempt, chest_rarity)
+        
+        if chest_rarity == ChestRarity.LEGENDARY:
+            print("Success! Found Legendary chest. Stopping automation.")
+            break
+        else:
+            print(f"Found {chest_rarity.name} chest. Continuing search...")
+            # force_quit_app(APP_NAME)
+            attempt += 1
+
+if __name__ == '__main__':
+    try:
+        main_loop()
+    except KeyboardInterrupt:
+        print("Script interrupted by user.")
+        sys.exit(0)
