@@ -27,9 +27,6 @@ def dig():
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
     time.sleep(0.1)
-    chest_rarity = check_chest()
-    if chest_rarity != ChestRarity.NONE:
-        return chest_rarity
     
     # Walk around to pick up any chest
     walk_pattern([[0.2,0],[0,-0.2],[-0.4,0],[0,0.4]]);

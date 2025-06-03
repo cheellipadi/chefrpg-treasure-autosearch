@@ -1,5 +1,6 @@
 import time
 import sys
+import pyautogui
 from utils import (
     APP_NAME,
     WAIT_AFTER_LOAD,
@@ -50,6 +51,11 @@ def main_loop():
         
         if rarity == ChestRarity.LEGENDARY:
             print(f"Success! Found Legendary chest. Stopping automation.")
+            # Collect the item and pause the time
+            click_image('legendary_chest')
+            click_image('inventory_button')
+            pyautogui.press('esc')
+
             break
         else:
             print(f"Found {rarity.name} chest. Continuing search...")
