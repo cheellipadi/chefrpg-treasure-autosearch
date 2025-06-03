@@ -9,7 +9,6 @@ from utils import (
     force_quit_app,
     walk_pattern,
     dig,
-    check_chest,
     ChestRarity,
     log_attempt
 )
@@ -48,18 +47,17 @@ def main_loop():
         time.sleep(WAIT_AFTER_LOAD)
 
         walk_pattern(WALK_PATTERN)
-        dig()
         
-        # Check for any type of chest and log the result
-        chest_rarity = check_chest()
-        log_attempt(attempt, chest_rarity)
+        # Dig and check for chests, logging the result
+        rarity = dig()
+        log_attempt(attempt, rarity)
         
-        if chest_rarity == ChestRarity.LEGENDARY:
-            print("Success! Found Legendary chest. Stopping automation.")
+        if rarity == ChestRarity.LEGENDARY:
+            print(f"Success! Found Legendary chest. Stopping automation.")
             break
         else:
-            print(f"Found {chest_rarity.name} chest. Continuing search...")
-            # force_quit_app(APP_NAME)
+            print(f"Found {rarity.name} chest. Continuing search...")
+            force_quit_app(APP_NAME)
             attempt += 1
 
 if __name__ == '__main__':

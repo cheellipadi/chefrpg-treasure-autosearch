@@ -1,7 +1,7 @@
 import pyautogui
 import time
 
-def locate_image_on_screen(template_path, confidence=0.8, grayscale=True):
+def locate_image_on_screen(template_path, confidence=0.75, grayscale=False):
     try:
         location = pyautogui.locateOnScreen("images/"+ template_path, confidence=confidence, grayscale=grayscale)
         return location
