@@ -26,16 +26,12 @@ def main_loop():
             attempt += 1
             continue
 
-        time.sleep(1)
-
         # Click Load Game button
         if not click_image('load_game_button.png'):
             print("Failed to click Load Game button. Retrying...")
             force_quit_app(APP_NAME)
             attempt += 1
             continue
-
-        time.sleep(2)
 
         # Click User Account button
         if not click_image('username.png'):
