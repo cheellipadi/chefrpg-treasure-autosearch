@@ -67,7 +67,8 @@ def main_loop():
             # Capture screenshot when no chest is found
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             screenshot_path = os.path.join(DEBUG_FOLDER, f'no_chest_attempt_{attempt}_{timestamp}.png')
-            pyautogui.screenshot(screenshot_path)
+            img = pyautogui.screenshot(screenshot_path)
+            img.save(screenshot_path)
             print(f"No chest found. Screenshot saved to: {screenshot_path}")
             force_quit_app(APP_NAME)
             attempt += 1
