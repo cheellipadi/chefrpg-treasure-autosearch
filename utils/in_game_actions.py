@@ -2,7 +2,7 @@ import pyautogui
 import time
 from .constants import DIG_KEY1, DIG_KEY2
 from .movement import walk_pattern
-from .image_utils import locate_image_on_screen
+from .images import locate_image_on_screen
 from enum import Enum, auto
 
 def dig():
@@ -17,9 +17,11 @@ def dig():
     pyautogui.press(DIG_KEY2)
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
+    time.sleep(0.1)
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
-    time.sleep(0.1)
+    pyautogui.press(DIG_KEY1)
+    pyautogui.press(DIG_KEY2)
     chest_rarity = check_chest()
     if chest_rarity != ChestRarity.NONE:
         return chest_rarity
