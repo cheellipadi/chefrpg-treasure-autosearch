@@ -21,7 +21,7 @@
 ```
 python3 -m venv .venv
 . .venv/bin/activate
-pip install pyautogui opencv-python pillow numpy
+python3 -m pip install pyautogui opencv-python pillow numpy requests python-dotenv
 ```
 
 ### Run script

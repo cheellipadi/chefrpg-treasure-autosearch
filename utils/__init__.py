@@ -4,7 +4,8 @@ from .constants import (
     DIG_KEY2,
     WAIT_AFTER_LOAD,
     WALK_PATTERN,
-    DISPLAY_SCALE_FACTOR
+    DISPLAY_SCALE_FACTOR,
+    TARGET_CHESTS
 )
 
 from .images import (
@@ -26,3 +27,5 @@ from .in_game_actions import (
 )
 
 from .logging import log_attempt 
+
+from .notifications import send_telegram_photo
