@@ -1,3 +1,8 @@
+## Instructions
+1. Find a treasure spot near a cave entrance/exit.
+2. Equip your shovel, save and FORCE QUIT the game. This will be CMD+Q on Mac, and ALT+F4 on windows. (Do not exit via main menu)
+3. Run the script after configuration
+   
 ## Configuration
 
 ### Change the username
