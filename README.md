@@ -7,14 +7,13 @@
 ## How to run
 
 ### Install deps
-
-`python3 -m venv .venv`
-`. .venv/bin/activate`
-`pip install pyautogui opencv-python pillow numpy`
+```
+python3 -m venv .venv
+. .venv/bin/activate
+pip install pyautogui opencv-python pillow numpy
+```
 
 ### Run script
-
-`python3 search.py`
-`make setup` -> Setup the repo, installs dependencies
-
-`make run` -> Runs the script
+```
+python3 search.py
+```

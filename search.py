@@ -1,6 +1,8 @@
 import time
 import sys
 import pyautogui
+import os
+from datetime import datetime
 from utils import (
     APP_NAME,
     WAIT_AFTER_LOAD,
@@ -13,6 +15,10 @@ from utils import (
     ChestRarity,
     log_attempt
 )
+
+# Create debug folder if it doesn't exist
+DEBUG_FOLDER = 'debug_screenshots'
+os.makedirs(DEBUG_FOLDER, exist_ok=True)
 
 def main_loop():
     attempt = 1
@@ -57,6 +63,14 @@ def main_loop():
             pyautogui.press('esc')
 
             break
+        elif rarity == ChestRarity.NONE:
+            # Capture screenshot when no chest is found
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            screenshot_path = os.path.join(DEBUG_FOLDER, f'no_chest_attempt_{attempt}_{timestamp}.png')
+            pyautogui.screenshot(screenshot_path)
+            print(f"No chest found. Screenshot saved to: {screenshot_path}")
+            force_quit_app(APP_NAME)
+            attempt += 1
         else:
             print(f"Found {rarity.name} chest. Continuing search...")
             force_quit_app(APP_NAME)
