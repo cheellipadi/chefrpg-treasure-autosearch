@@ -15,7 +15,8 @@ from utils import (
     ChestRarity,
     log_attempt,
     send_telegram_photo,
-    TARGET_CHESTS
+    TARGET_CHESTS,
+    wait_for_user_input
 )
 
 # Create debug folder if it doesn't exist
@@ -71,12 +72,26 @@ def main_loop():
             img = pyautogui.screenshot(screenshot_path)
             img.save(screenshot_path)
             time.sleep(2)
-            send_telegram_photo(screenshot_path, f"Found an {rarity.name} chest! Reply Y to Keep or N to restart search")
+            send_telegram_photo(screenshot_path, f"Found {rarity.name} chest! Reply Y to keep or N to restart search")
 
+            time.sleep(2)
             # Collect the item and pause the time
             click_image('inventory_button')
             pyautogui.press('esc')
-            break
+
+            user_reply = wait_for_user_input()
+
+            if user_reply == "Y":
+                print("User confirmed to keep it. Stopping automation.")
+                break
+            elif user_reply == "N":
+                print("User chose to restart search.")
+                force_quit_app(APP_NAME)
+                attempt += 1
+            else:
+                print(f"No user input. Assume that user is away for a long while and might want to keep it. Stopping automation")
+                break;
+                
 
         elif rarity == ChestRarity.NONE:
             # Capture screenshot when no chest is found

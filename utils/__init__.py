@@ -28,4 +28,4 @@ from .in_game_actions import (
 
 from .logging import log_attempt 
 
-from .notifications import send_telegram_photo
+from .notifications import (send_telegram_photo, wait_for_user_input)
