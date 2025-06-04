@@ -1,3 +1,5 @@
-source .venv/bin/activate
+### How to run
 
-python search.py
+`make setup` -> Setup the repo, installs dependencies
+
+`make run` -> Runs the script
