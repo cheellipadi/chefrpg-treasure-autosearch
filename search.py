@@ -18,6 +18,12 @@ from utils import (
     TARGET_CHESTS,
     wait_for_user_input
 )
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads from .env file in current directory
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # Create debug folder if it doesn't exist
 DEBUG_FOLDER = 'debug_screenshots'
@@ -62,35 +68,48 @@ def main_loop():
         log_attempt(attempt, rarity)
         
         if rarity.name in TARGET_CHESTS:
-            print(f"Success! Found {rarity.name} chest. Stopping automation.")
-
-            # Send treasure chest contents
+            print(f"Success! Found {rarity.name} chest. Opening and saving chest contents")
+            telegram_bot_enabled = bool(TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID)
             click_image(f'{rarity.name.lower()}_chest')
             time.sleep(2)
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            screenshot_path = os.path.join(TREASURE_TROVE, f'{attempt}_{rarity.name}_{timestamp}.png')
+            timestamp = datetime.now().strftime('%Y-%m-%d_%I-%M%p')
+            screenshot_path = os.path.join(TREASURE_TROVE, f'{timestamp}_{rarity.name}_attempt{attempt}.png')
             img = pyautogui.screenshot(screenshot_path)
             img.save(screenshot_path)
             time.sleep(2)
-            send_telegram_photo(screenshot_path, f"Found {rarity.name} chest! Reply Y to keep or N to restart search")
+            print("Keeping chest contents in inventory.")
 
-            time.sleep(2)
-            # Collect the item and pause the time
-            click_image('inventory_button')
-            pyautogui.press('esc')
 
-            user_reply = wait_for_user_input()
-
-            if user_reply == "Y":
-                print("User confirmed to keep it. Stopping automation.")
-                break
-            elif user_reply == "N":
-                print("User chose to restart search.")
-                force_quit_app(APP_NAME)
-                attempt += 1
-            else:
-                print(f"No user input. Assume that user is away for a long while and might want to keep it. Stopping automation")
+            if not telegram_bot_enabled:
+                print("Telegram bot not enabled. To enable, refer to README.md")
+                print("Keeping chest contents in inventory.")
+                click_image('inventory_button')
+                pyautogui.press('esc')
+                print(f"Kept items in inventory. Check {screenshot_path} for results")
                 break;
+
+            else: # Send treasure chest contents to TG bot
+                print("Sending chest contents to TG bot")
+                send_telegram_photo(screenshot_path, f"Found {rarity.name} chest! Reply Y to keep or N to restart search")
+                time.sleep(2)
+
+                # Collect the item and pause the time
+                print("Keeping chest contents in inventory.")
+                click_image('inventory_button')
+                pyautogui.press('esc')
+
+                user_reply = wait_for_user_input()
+
+                if user_reply == "Y":
+                    print("User confirmed to keep it. Stopping automation.")
+                    break
+                elif user_reply == "N":
+                    print("User chose to restart search.")
+                    force_quit_app(APP_NAME)
+                    attempt += 1
+                else:
+                    print(f"No user input. Assume that user is away for a long while and might want to keep it. Stopping automation")
+                    break;
                 
 
         elif rarity == ChestRarity.NONE:
