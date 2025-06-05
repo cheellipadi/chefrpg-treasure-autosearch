@@ -20,12 +20,15 @@ def increment_chest(rarity, count=1):
         chest_counts[rarity] += count
 
 def get_chest_summary():
-    return (
-        f"🟢 Common: {chest_counts[ChestRarity.COMMON]}\n"
-        f"🔵 Rare: {chest_counts[ChestRarity.RARE]}\n"
-        f"🟣 Epic: {chest_counts[ChestRarity.EPIC]}\n"
-        f"🟡 Legendary: {chest_counts[ChestRarity.LEGENDARY]}"
-    )
+    total = get_total_chests()
+    if total>0:
+        return (
+            f"🟢 Common: {chest_counts[ChestRarity.COMMON]} ({(chest_counts[ChestRarity.COMMON]* 100) / total:.1f}%)\n"
+            f"🔵 Rare: {chest_counts[ChestRarity.RARE]} ({(chest_counts[ChestRarity.RARE]* 100) / total:.1f}%)\n"
+            f"🟣 Epic: {chest_counts[ChestRarity.EPIC]} ({(chest_counts[ChestRarity.EPIC]* 100) / total:.1f}%)\n"
+            f"🟡 Legendary: {chest_counts[ChestRarity.LEGENDARY]} ({(chest_counts[ChestRarity.LEGENDARY]* 100) / total:.1f}%)\n"
+            f"📊 Total: {get_total_chests()}"
+        )
 
 def get_total_chests():
     return sum(chest_counts[rarity] for rarity in ChestRarity if rarity != ChestRarity.NONE)

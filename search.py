@@ -21,7 +21,8 @@ from utils import (
     get_chest_summary,
     format_elapsed,
     get_total_chests,
-    chest_counts
+    chest_counts,
+    performance
 )
 from dotenv import load_dotenv
 
@@ -37,23 +38,8 @@ TREASURE_TROVE='treasure_trove'
 os.makedirs(DEBUG_FOLDER, exist_ok=True)
 os.makedirs(TREASURE_TROVE, exist_ok=True)
 
-start_time = time.time()
-total_user_input_time = 0
-
-def log_perf():
-    time_elapsed = int(time.time() - start_time - total_user_input_time)  # or use round() for float
-    print(f"📈 STATISTICS: \n\tScript has run for {format_elapsed(time_elapsed)} seconds (excluding user input)")
-    print(f"\ttotal user input time: {total_user_input_time}s")
-    total_chests = get_total_chests()
-    print(f"\tTotal chests found: {total_chests}")
-    if total_chests > 0:
-        print(f"\tChest finding speed: {time_elapsed / total_chests:.2f} seconds per chest")
-        for rarity in ChestRarity:
-            if rarity == ChestRarity.NONE:
-                continue  # Skip the 'NONE' type if it's just a placeholder
-            count = chest_counts[rarity]
-            percentage = (count * 100) / total_chests
-            print(f"\t{rarity.name.upper()} chests found: {count} (Find rate: {percentage:.2f}%)")
+performance.start_time = time.time()
+performance.total_user_input_time = 0
 
 def main_loop():
     attempt = 1
@@ -89,7 +75,8 @@ def main_loop():
         # Dig and check for chests, logging the result
         rarity = dig()
         log_attempt(attempt, rarity)
-        log_perf()
+        print(get_chest_summary())
+        print(performance.get_stats())
         
         if rarity.name in TARGET_CHESTS:
             print(f"Success! Found {rarity.name} chest. Opening and saving chest contents")
@@ -122,8 +109,7 @@ def main_loop():
 
                 user_input_start_time = time.time()
                 user_reply = wait_for_user_input()
-                global total_user_input_time
-                total_user_input_time += time.time() - user_input_start_time
+                performance.total_user_input_time += time.time() - user_input_start_time
 
                 if user_reply == "Y":
                     print("User confirmed to keep it. Stopping automation.")

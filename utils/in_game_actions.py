@@ -1,6 +1,6 @@
 import pyautogui
 import time
-from .constants import DIG_KEY1, DIG_KEY2
+from .constants import DIG_KEY1, DIG_KEY2, SWEEP_PATTERN
 from .movement import walk_pattern
 from .images import locate_image_on_screen
 from .chest_counter import ChestRarity
@@ -33,8 +33,8 @@ def dig():
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
     
-    # Walk around to pick up any chest
-    walk_pattern([[0.2,0],[0,-0.2],[-0.4,0],[0,0.4],[0.2,0]]);
+    # Walk around to sweep surrounding area and pick up any chest
+    walk_pattern(SWEEP_PATTERN);
     chest_rarity = check_chest()
     if chest_rarity != ChestRarity.NONE:
         return chest_rarity

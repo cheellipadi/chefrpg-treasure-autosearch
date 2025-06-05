@@ -26,3 +26,4 @@ def log_attempt(attempt_number, chest_rarity):
     with open(filename, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([timestamp, attempt_number, chest_rarity.name]) 
+

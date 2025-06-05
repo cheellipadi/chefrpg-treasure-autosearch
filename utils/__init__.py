@@ -5,7 +5,8 @@ from .constants import (
     WAIT_AFTER_LOAD,
     WALK_PATTERN,
     DISPLAY_SCALE_FACTOR,
-    TARGET_CHESTS
+    TARGET_CHESTS,
+    SWEEP_PATTERN
 )
 
 from .images import (
@@ -32,3 +33,5 @@ from .notifications import (send_telegram_photo, wait_for_user_input, send_teleg
 from .chest_counter import (get_chest_summary, increment_chest, ChestRarity, get_total_chests, chest_counts)
 
 from .time_helpers import format_elapsed
+
+from .performance import get_stats
