@@ -1,7 +1,10 @@
 import csv
 from datetime import datetime
+from .chest_counter import increment_chest
 
 def log_attempt(attempt_number, chest_rarity):
+    increment_chest(chest_rarity)
+
     """
     Log an attempt and its result to a CSV file.
     Args:

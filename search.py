@@ -16,7 +16,9 @@ from utils import (
     log_attempt,
     send_telegram_photo,
     TARGET_CHESTS,
-    wait_for_user_input
+    wait_for_user_input,
+    send_telegram_message,
+    get_chest_summary
 )
 from dotenv import load_dotenv
 
@@ -102,9 +104,11 @@ def main_loop():
 
                 if user_reply == "Y":
                     print("User confirmed to keep it. Stopping automation.")
+                    send_telegram_message("Congratulations! I'll keep your treasure chest. Your findings so far:\n" + get_chest_summary())
                     break
                 elif user_reply == "N":
                     print("User chose to restart search.")
+                    send_telegram_message("Ok, I'll keep searching. Your findings so far:\n" + get_chest_summary())
                     force_quit_app(APP_NAME)
                     attempt += 1
                 else:

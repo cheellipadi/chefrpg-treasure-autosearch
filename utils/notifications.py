@@ -32,8 +32,11 @@ def wait_for_user_input(valid_responses=("Y", "N"), timeout=60*60*2): # 2 hour t
             if "message" in update and str(update["message"]["chat"]["id"]) == TELEGRAM_CHAT_ID and update["message"]["date"] > start_time:
                 msg = update["message"]["text"].strip().upper()
                 if msg in valid_responses:
+                   
                     return msg
-        # Start next long-poll (30s) immediately
+                else:
+                    send_telegram_message(f"You have provided an invalid response")
+            # Start next long-poll (30s) immediately
 
     return None
 
@@ -48,3 +51,17 @@ def send_telegram_photo(image_path, caption=None):
             response.raise_for_status()
         except Exception as e:
             print(f"Failed to send image: {e}")
+
+
+def send_telegram_message(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    print(f"sending message to: {url}")
+    data = {
+        'chat_id': TELEGRAM_CHAT_ID,
+        'text': message
+    }
+    try:
+        response = requests.post(url, data=data)
+        response.raise_for_status()
+    except Exception as e:
+        print(f"Failed to send message: {e}")

@@ -22,10 +22,11 @@ from .movement import walk_pattern
 
 from .in_game_actions import (
     dig,
-    ChestRarity,
     check_chest
 )
 
 from .logging import log_attempt 
 
-from .notifications import (send_telegram_photo, wait_for_user_input)
+from .notifications import (send_telegram_photo, wait_for_user_input, send_telegram_message)
+
+from .chest_counter import (get_chest_summary, increment_chest, ChestRarity)

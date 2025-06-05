@@ -3,7 +3,7 @@ import time
 from .constants import DIG_KEY1, DIG_KEY2
 from .movement import walk_pattern
 from .images import locate_image_on_screen
-from enum import Enum, auto
+from .chest_counter import ChestRarity
 
 def dig():
     """
@@ -43,14 +43,6 @@ def dig():
         return chest_rarity
     
     return ChestRarity.NONE
-
-
-class ChestRarity(Enum):
-    NONE = auto()
-    COMMON = auto()
-    RARE = auto()
-    EPIC = auto()
-    LEGENDARY = auto()
 
 
 def check_chest():
