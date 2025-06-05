@@ -12,15 +12,16 @@ def get_latest_response(since_update_id):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates"
     params = {"offset": since_update_id, "timeout": 30} # Long-poll for 30s, if any response is received during this time, api will return the message
     try:
-        print("getting updates")
+        print("\tgetting updates")
         res = requests.get(url, params=params).json()
-        print(f"update res: {res}")
+        print(f"\tupdate res: {res}")
         return res.get("result", [])
     except Exception as e:
-        print("Polling failed:", e)
+        print("\tPolling failed:", e)
         return []
 
 def wait_for_user_input(valid_responses=("Y", "N"), timeout=60*60*2): # 2 hour timeout by default
+    print("Waiting for user input...")
     start_time = time.time()
     last_update_id = None
 

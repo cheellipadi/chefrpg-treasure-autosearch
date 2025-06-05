@@ -11,7 +11,7 @@ def dig():
     Returns:
         ChestRarity: The rarity of chest found, or NONE if no chest is found
     """
-    print(f"Pressing dig key: {DIG_KEY1} and {DIG_KEY2}")
+    print(f"Pressing dig key: '{DIG_KEY1}' and '{DIG_KEY2}'")
     
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
@@ -22,16 +22,19 @@ def dig():
     pyautogui.press(DIG_KEY2)
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
-    chest_rarity = check_chest()
-    if chest_rarity != ChestRarity.NONE:
-        return chest_rarity
-    
+    time.sleep(0.1)
+    pyautogui.press(DIG_KEY1)
+    pyautogui.press(DIG_KEY2)
     pyautogui.press(DIG_KEY1)
     pyautogui.press(DIG_KEY2)
     time.sleep(0.1)
+    pyautogui.press(DIG_KEY1)
+    pyautogui.press(DIG_KEY2)
+    pyautogui.press(DIG_KEY1)
+    pyautogui.press(DIG_KEY2)
     
     # Walk around to pick up any chest
-    walk_pattern([[0.2,0],[0,-0.2],[-0.4,0],[0,0.4]]);
+    walk_pattern([[0.2,0],[0,-0.2],[-0.4,0],[0,0.4],[0.2,0]]);
     chest_rarity = check_chest()
     if chest_rarity != ChestRarity.NONE:
         return chest_rarity

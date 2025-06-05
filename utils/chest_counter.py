@@ -26,3 +26,6 @@ def get_chest_summary():
         f"🟣 Epic: {chest_counts[ChestRarity.EPIC]}\n"
         f"🟡 Legendary: {chest_counts[ChestRarity.LEGENDARY]}"
     )
+
+def get_total_chests():
+    return sum(chest_counts[rarity] for rarity in ChestRarity if rarity != ChestRarity.NONE)
