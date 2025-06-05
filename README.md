@@ -22,7 +22,7 @@
 ```
 python3 -m venv .venv
 . .venv/bin/activate
-python3 -m pip install pyautogui opencv-python pillow numpy requests python-dotenv
+python3 -m pip install pyautogui opencv-python pillow numpy requests dotenv
 ```
 
 ### Run script
@@ -71,8 +71,8 @@ You need to know the chat ID to send messages to a person or group.
 How to get your personal chat ID
 
 1. Start a chat with your bot (just send any message).
-2. Open this URL in your browser (replace YOUR_BOT_TOKEN):
-   https://api.telegram.org/botYOUR_BOT_TOKEN/getUpdates
+2. Open this URL in your browser (replace <YOUR_BOT_TOKEN> with your actual token):
+   https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 
 Look for something like:
 
