@@ -18,6 +18,20 @@
 
 ## How to run
 
+### Install Git and Python
+Git:
+Download & install from https://git-scm.com/downloads
+
+Python (Windows only -- Mac users should have already have this installed by default):<br/>
+Download & install from https://www.python.org/downloads<br/>
+✅ During installation, make sure to check the box that says "Add Python to PATH"
+
+### Clone this repo
+```
+git clone https://github.com/cheellipadi/chefrpg-treasure-autosearch.git
+cd chefrpg-treasure-autosearch
+```
+
 ### Install dependencies
 
 ```
