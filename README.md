@@ -6,18 +6,19 @@
 
 ## Configuration
 
-### Change the username
+### Change the username screenshot
 
 - This tool works by using image recognition. You need to update the [username screenshot](./images/username) to match your own
+- This also applies to other screenshots if the script can't find the relevant buttons / chests. The image recognition library that this script uses is pixel sensitive, so you may have to re-capture some or all screenshots depending on your screen's resolution
 
 ### Configure params
 
 - Modify the [constants](./utils/constants.py) file.
-- It will take some trial and error for the WALK_PATTERN parameter, but it should take fewer than 10 attempts.
+- It will take some trial and error for the WALK_PATTERN parameter, but it should take fewer than 10 attempts once you're used to how it works
 
 ## How to run
 
-### Install deps
+### Install dependencies
 
 ```
 python3 -m venv .venv
@@ -92,12 +93,15 @@ Copy and paste these into a `.env` file (You can duplicate and rename `.env.exam
 
 ## FAQs
 
-Q: Why is the script not able to click on a button or detect a certain kind of treasure chest?
+Q: Why is the script not able to click on a button or detect a certain kind of treasure chest?<br/>
 A: pyautogui is pixel specific / device sensitive, so if the [images](./images/) folder doesn't contain screenshots specific to your device, it may not work as expected. You can modify these folders to include your own screenshots. Note that the larger the size of this folder, the longer the script will take to run.
 
-Q: Why is it not working properly?
+Q: Why is it not working properly?<br/>
 A: For attempts where no chests are found, a screenshot will be taken and saved to the [debug folder](./debug_screenshots/). If you see a chest in any of these screenshots, it means you need to update the screenshots of that particular chest.
 
-Q: Why is it taking so long to identify the treasure chest?
+Q: Why is it taking so long to identify the treasure chest?<br/>
 A: You can optimize this by deleting all the files in each nested folder in [images](./images/). The script tries to match EACH image in this folder, so you can replace these screenshots with your own. When you take screenshots, try to ensure that the background doesn't get captured as well. For example, for the continue button, just take a screenshot of what's inside the button's borders. This will prevent it trying to match the background (There are a variety of loading screen backgrounds)
+
+Q: My treasure runs often get interrupted by NPCs or wildlife, what can I do?<br/>
+A: For wildlife, a simple workaround is to walk to the treasure spot but include some backtracking along the way. This is because you just need to give the wildlife some time to run away from you. For NPCs, since treasure spots don't shift positions when you enter/exit the screen, return to the treasure spot at night, maybe past 8pm. This is when beaches are the quietest, and the likelihood of NPCs interrupting your flow will be minimal.
 
