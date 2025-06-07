@@ -1,9 +1,13 @@
-import pyautogui
+import platform
 import time
 from .constants import DIG_KEY1, DIG_KEY2, SWEEP_PATTERN
 from .movement import walk_pattern
 from .images import locate_image_on_screen
 from .chest_counter import ChestRarity
+if platform.system() == 'Windows':
+    import keyboard
+else:
+    import pyautogui
 
 def dig():
     """
@@ -12,41 +16,54 @@ def dig():
         ChestRarity: The rarity of chest found, or NONE if no chest is found
     """
     print(f"Pressing dig key: '{DIG_KEY1}' and '{DIG_KEY2}'")
-    
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    time.sleep(0.1)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    time.sleep(0.1)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    time.sleep(0.1)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    pyautogui.press(DIG_KEY1)
-    pyautogui.press(DIG_KEY2)
-    
-    # Walk around to sweep surrounding area and pick up any chest
-    walk_pattern(SWEEP_PATTERN);
-    chest_rarity = check_chest()
-    if chest_rarity != ChestRarity.NONE:
-        return chest_rarity
-    
-    # double check to be sure there's no chest
-    time.sleep(0.1)
-    chest_rarity = check_chest()
-    if chest_rarity != ChestRarity.NONE:
-        return chest_rarity
-    
-    return ChestRarity.NONE
+    if platform.system() == 'Windows':
+        return dig_windows()
+    else:
+        return dig_mac()
 
+def dig_mac():
+    # Repeat dig key sequence 4 times, with a short pause every 2 sequences
+    for i in range(4):
+        pyautogui.press(DIG_KEY1)
+        pyautogui.press(DIG_KEY2)
+        pyautogui.press(DIG_KEY1)
+        pyautogui.press(DIG_KEY2)
+        if i < 3:
+            time.sleep(0.1)
+
+    # Walk around to sweep surrounding area and pick up any chest
+    walk_pattern(SWEEP_PATTERN)
+    
+    chest_rarity = check_chest()
+    if chest_rarity != ChestRarity.NONE:
+        return chest_rarity
+
+    # Double check to be sure there's no chest
+    time.sleep(0.1)
+    chest_rarity = check_chest()
+    return chest_rarity
+
+def dig_windows():
+    # Repeat dig key sequence 4 times, with a short pause every 2 sequences
+    for i in range(4):
+        keyboard.press_and_release(DIG_KEY1)
+        keyboard.press_and_release(DIG_KEY2)
+        keyboard.press_and_release(DIG_KEY1)
+        keyboard.press_and_release(DIG_KEY2)
+        if i < 3:
+            time.sleep(0.1)
+
+    # Walk around to sweep surrounding area and pick up any chest
+    walk_pattern(SWEEP_PATTERN)
+    
+    chest_rarity = check_chest()
+    if chest_rarity != ChestRarity.NONE:
+        return chest_rarity
+
+    # Double check to be sure there's no chest
+    time.sleep(0.1)
+    chest_rarity = check_chest()
+    return chest_rarity
 
 def check_chest():
     """
