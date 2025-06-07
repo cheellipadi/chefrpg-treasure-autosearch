@@ -6,7 +6,8 @@ from .constants import (
     WALK_PATTERN,
     DISPLAY_SCALE_FACTOR,
     TARGET_CHESTS,
-    SWEEP_PATTERN
+    SWEEP_PATTERN,
+    WINDOWS_FULL_PATH_TO_APP_EXE
 )
 
 from .images import (

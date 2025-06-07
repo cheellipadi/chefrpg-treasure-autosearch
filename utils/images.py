@@ -66,7 +66,12 @@ def click_image(template_path, confidence=0.8, timeout=5):
             adjusted_x = center.x / DISPLAY_SCALE_FACTOR
             adjusted_y = center.y / DISPLAY_SCALE_FACTOR
 
-            pyautogui.click(adjusted_x, adjusted_y)
+            pyautogui.moveTo(adjusted_x,adjusted_y)
+            pyautogui.mouseDown()
+            pyautogui.click()
+            time.sleep(0.5) 
+            pyautogui.mouseUp()
+            time.sleep(0.1)
             print(f"Clicked on {template_path} at ({adjusted_x}, {adjusted_y}) with scale factor {DISPLAY_SCALE_FACTOR}")
             return True
         else:
