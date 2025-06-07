@@ -19,6 +19,7 @@
 ## How to run
 
 ### Install Git and Python
+
 Git:
 Download & install from https://git-scm.com/downloads
 
@@ -27,6 +28,7 @@ Download & install from https://www.python.org/downloads<br/>
 ✅ During installation, make sure to check the box that says "Add Python to PATH"
 
 ### Clone this repo
+
 ```
 git clone https://github.com/cheellipadi/chefrpg-treasure-autosearch.git
 cd chefrpg-treasure-autosearch
@@ -35,10 +37,11 @@ cd chefrpg-treasure-autosearch
 ### Install dependencies
 
 Replace `python3` with just `python` on Windows
+
 ```
-python3 -m venv .venv            
+python3 -m venv .venv
 . .venv/bin/activate             (.venv\Scripts\activate on Windows)
-python3 -m pip install pyautogui opencv-python pillow numpy requests dotenv
+python3 -m pip install pyautogui opencv-python pillow numpy requests dotenv keyboard
 ```
 
 ### Run script
@@ -119,4 +122,3 @@ A: You can optimize this by deleting all the files in each nested folder in [ima
 
 Q: My treasure runs often get interrupted by NPCs or wildlife, what can I do?<br/>
 A: For wildlife, a simple workaround is to walk to the treasure spot but include some backtracking along the way. This is because you just need to give the wildlife some time to run away from you. For NPCs, since treasure spots don't shift positions when you enter/exit the screen, return to the treasure spot at night, maybe past 8pm. This is when beaches are the quietest, and the likelihood of NPCs interrupting your flow will be minimal.
-
