@@ -34,9 +34,10 @@ cd chefrpg-treasure-autosearch
 
 ### Install dependencies
 
+Replace `python3` with just `python` on Windows
 ```
-python3 -m venv .venv
-. .venv/bin/activate
+python3 -m venv .venv            
+. .venv/bin/activate             (.venv\Scripts\activate on Windows)
 python3 -m pip install pyautogui opencv-python pillow numpy requests dotenv
 ```
 

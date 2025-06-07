@@ -4,7 +4,6 @@ import pyautogui
 import os
 from datetime import datetime
 from utils import (
-    APP_NAME,
     WAIT_AFTER_LOAD,
     WALK_PATTERN,
     click_image,
@@ -45,26 +44,26 @@ def main_loop():
     attempt = 1
     while True:
         print(f"\n--- Attempt #{attempt} ---")
-        open_app(APP_NAME)
+        open_app()
 
         # Click Continue button
         if not click_image('continue_button'):
             print("Failed to click Continue button. Retrying...")
-            force_quit_app(APP_NAME)
+            force_quit_app()
             attempt += 1
             continue
 
         # Click Load Game button
         if not click_image('load_game_button'):
             print("Failed to click Load Game button. Retrying...")
-            force_quit_app(APP_NAME)
+            force_quit_app()
             attempt += 1
             continue
 
         # Click User Account button
         if not click_image('username'):
             print("Failed to click username button. Retrying...")
-            force_quit_app(APP_NAME)
+            force_quit_app()
             attempt += 1
             continue
 
@@ -118,7 +117,7 @@ def main_loop():
                 elif user_reply == "N":
                     print("User chose to restart search.")
                     send_telegram_message("Ok, I'll keep searching. Your findings so far:\n" + get_chest_summary())
-                    force_quit_app(APP_NAME)
+                    force_quit_app()
                     attempt += 1
                 else:
                     print(f"No user input. Assume that user is away for a long while and might want to keep it. Stopping automation")
@@ -133,11 +132,11 @@ def main_loop():
             img.save(screenshot_path)
             time.sleep(2)
             print(f"No chest found. Screenshot saved to: {screenshot_path}")
-            force_quit_app(APP_NAME)
+            force_quit_app()
             attempt += 1
         else:
             print(f"Found {rarity.name} chest. Restarting search...")
-            force_quit_app(APP_NAME)
+            force_quit_app()
             attempt += 1
 
 if __name__ == '__main__':
